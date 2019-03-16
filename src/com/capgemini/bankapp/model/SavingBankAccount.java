@@ -1,5 +1,7 @@
 package com.capgemini.bankapp.model;
 
+import com.capgemini.bankapp.exception.InsufficientFundException;
+
 public class SavingBankAccount extends BankAccount {
 
 	private boolean salaryAccount;
@@ -30,7 +32,7 @@ public class SavingBankAccount extends BankAccount {
 			if(getAccountBalance() - amount >= MINIMUM_BALANCE)
 				setAccountBalance(getAccountBalance() - amount); 
 			else
-				System.out.println("you don't have sufficient fund.");
+				throw new InsufficientFundException("you don't have sufficient fund.");
 			return getAccountBalance();
 		}
 	}

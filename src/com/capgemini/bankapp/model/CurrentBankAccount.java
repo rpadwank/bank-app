@@ -1,5 +1,7 @@
 package com.capgemini.bankapp.model;
 
+import com.capgemini.bankapp.exception.DebitLimitExceededException;
+
 public class CurrentBankAccount extends BankAccount{
 	private double debitLimit;
 	private double borrowedAmount;
@@ -45,7 +47,7 @@ public class CurrentBankAccount extends BankAccount{
 			borrowedAmount = borrowedAmount + Math.abs(temp);
 		}
 		else
-			System.out.println("Debit Limit exceeded.");
+			throw new DebitLimitExceededException("Debit Limit exceeded.");
 		
 		return getAccountBalance();
 	}
