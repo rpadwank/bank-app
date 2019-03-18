@@ -7,11 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.capgemini.bankapp.exception.DebitLimitExceededException;
+import com.capgemini.bankapp.model.BankAccount;
 import com.capgemini.bankapp.model.CurrentBankAccount;
 
 public class CurrentBankAccountTest {
 
-	private CurrentBankAccount account;
+	private BankAccount account;
 	
 	@Before
 	public void setUp()
@@ -22,7 +23,7 @@ public class CurrentBankAccountTest {
 	@Test
 	public void testCurrentBankAccountObjectIsCreated()
 	{
-		CurrentBankAccount account = new CurrentBankAccount();
+		BankAccount account = new CurrentBankAccount();
 		assertNotNull(account);
 	}
 	
@@ -33,8 +34,8 @@ public class CurrentBankAccountTest {
 		assertEquals("John Doe", account.getAccountHolderName());
 		assertEquals("SAVING", account.getAccountType());
 		assertEquals(45000, account.getAccountBalance(),0.01);
-		assertEquals(10000, account.getDebitLimit(),0.01);
-		assertEquals(0, account.getBorrowedAmount(),0.01);
+		assertEquals(10000, ((CurrentBankAccount) account).getDebitLimit(),0.01);
+		assertEquals(0, ((CurrentBankAccount) account).getBorrowedAmount(),0.01);
 		
 	}
 	
@@ -48,14 +49,14 @@ public class CurrentBankAccountTest {
 	public void testCurrentBankAccountWithdrawWithFundWithinDebitLimit()
 	{
 		assertEquals(0, account.withdraw(51000),0.01);
-		assertEquals(6000, account.getBorrowedAmount(), 0.01);
+		assertEquals(6000, ((CurrentBankAccount) account).getBorrowedAmount(), 0.01);
 	}
 	
 	@Test(expected = DebitLimitExceededException.class)
 	public void testCurrentBankAccountWithdrawWithFundWithDebitLimitExceeded()
 	{
 		assertEquals(45000, account.withdraw(56000),0.01);
-		assertEquals(0, account.getBorrowedAmount(), 0.01);
+		assertEquals(0, ((CurrentBankAccount) account).getBorrowedAmount(), 0.01);
 	}
 	
 	@Test
