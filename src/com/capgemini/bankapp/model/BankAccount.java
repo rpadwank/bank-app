@@ -1,5 +1,7 @@
 package com.capgemini.bankapp.model;
 
+import com.capgemini.bankapp.exception.InsufficientFundException;
+
 public class BankAccount {
 
 	private long accountId;
@@ -54,7 +56,7 @@ public class BankAccount {
 		if(accountBalance>=amount)
 			accountBalance = accountBalance - amount;
 		else 
-			System.out.println("You don't have sufficient fund");
+			throw new InsufficientFundException("you don't have sufficient fund.");
 		return accountBalance;
 		
 	}

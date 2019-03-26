@@ -43,7 +43,7 @@ public class SavingBankAccountTest {
 		assertEquals(500, account.withdraw(44500),0.01);
 	}
 	
-	@Test
+	@Test(expected = InsufficientFundException.class)
 	public void testSavingBankAccountWithdrawWithSalaryAccountWithInsufficientFund()
 	{
 		assertEquals(45000, account.withdraw(45001),0.01);
